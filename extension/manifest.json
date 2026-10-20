@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "AI’de İncele — Outlook için",
+  "version": "0.4.0",
+  "description": "Açık Outlook mailini özgün içerik görselleriyle seçtiğiniz ChatGPT veya Claude sohbetine aktarır. Logo ve imza görsellerini çıkarır.",
+  "minimum_chrome_version": "120",
+  "homepage_url": "https://haliltalhaertan.github.io/ai-incele/privacy.html",
+  "permissions": ["alarms", "storage"],
+  "icons": {"16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png"},
+  "background": {"service_worker": "background.js"},
+  "action": {"default_title": "AI’de İncele", "default_popup": "popup.html"},
+  "content_scripts": [
+    {
+      "matches": ["https://outlook.cloud.microsoft/*", "https://outlook.office.com/*", "https://outlook.office365.com/*"],
+      "js": ["mail-core.js", "outlook.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["ai-transfer.js", "chatgpt.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["ai-transfer.js", "claude.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
